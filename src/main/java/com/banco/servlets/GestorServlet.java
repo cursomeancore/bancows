@@ -84,6 +84,8 @@ public class GestorServlet extends HttpServlet {
 		}
 
 		System.out.println(body);
+		
+		// parseo
 		JSONObject bodyJson = new JSONObject(body.toString());
 		
 		System.out.println("Se han enviado " + bodyJson.length() + " pares clave-valor");
@@ -95,6 +97,7 @@ public class GestorServlet extends HttpServlet {
 		 */
 		
 		response.setContentType("application/json");
+		
 		
 		JSONObject json = new JSONObject();
 		json.put("ok", true);
