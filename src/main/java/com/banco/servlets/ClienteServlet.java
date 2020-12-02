@@ -16,15 +16,23 @@ import org.json.JSONObject;
  */
 @WebServlet("/cliente")
 public class ClienteServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	private JSONArray clientes;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ClienteServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        System.out.println("Este es el constructor del Servlet de Clientes");
+        this.clientes = new JSONArray();
     }
+    
+    @Override
+	public void init() throws ServletException {
+		System.out.println("Este código se ejecuta cuando se inicializa el Servlet de Clientes");
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,10 +45,10 @@ public class ClienteServlet extends HttpServlet {
 		JSONObject jsonPrincipal = new JSONObject();
 		jsonPrincipal.put("ok", true);
 		jsonPrincipal.put("mensaje", "");
-		JSONArray clientes = new JSONArray();
+		//JSONArray clientes = new JSONArray();
 		
 		// cliente1
-		JSONObject cliente1 = new JSONObject();
+		/*JSONObject cliente1 = new JSONObject();
 		cliente1.put("id", 1);
 		cliente1.put("id_gestor", 1);
 		cliente1.put("usuario", "cliente1");
@@ -50,14 +58,15 @@ public class ClienteServlet extends HttpServlet {
 		
 		// cliente2
 		JSONObject cliente2 = new JSONObject();
-		cliente2.put("id", 1);
+		cliente2.put("id", 2);
 		cliente2.put("id_gestor", 1);
 		cliente2.put("usuario", "cliente2");
 		cliente2.put("email", "cliente2@mail.com");
 		cliente2.put("saldo", 0);
 		clientes.put(cliente2);
+		*/
 		
-		jsonPrincipal.put("data", clientes);
+		jsonPrincipal.put("data", this.clientes);
 		
 		response.getWriter().append(jsonPrincipal.toString());
 	}
@@ -78,7 +87,11 @@ public class ClienteServlet extends HttpServlet {
 		// parseo
 		JSONObject bodyJson = new JSONObject(body.toString());
 		
-	
+		for(String clave : bodyJson.keySet()) {
+			System.out.println(clave + ": " + bodyJson.get(clave));
+		}
+		
+		this.clientes.put(bodyJson);
 		
 		
 		/*
