@@ -1,5 +1,6 @@
 package com.banco.servlets;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -66,7 +67,32 @@ public class ClienteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// body
+		BufferedReader reader = request.getReader();
+		StringBuilder body = new StringBuilder();
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			body.append(line);
+		}
 		
+		// parseo
+		JSONObject bodyJson = new JSONObject(body.toString());
+		
+	
+		
+		
+		/*
+		 * respuesta
+		 */
+		
+		response.setContentType("application/json");
+		
+		JSONObject json = new JSONObject();
+		json.put("ok", true);
+		json.put("msg", "");
+		json.put("data", new JSONObject());
+		
+		response.getWriter().append(json.toString());
 		
 	}
 
